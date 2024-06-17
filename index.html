@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="Changhai.png">
+  <title>SCTM Calculator V1.0</title>
+  <script>
+    function init() {
+      var inputs = document.querySelectorAll('.input-field');
+      inputs.forEach(input => {
+        input.addEventListener('input', calculateSum);
+      });
+    }
+
+    function calculateSum() {
+      var values = Array.from(document.querySelectorAll('.input-field')).map(input => {
+        return parseFloat(input.value) || 0;
+      });
+
+      var allFilled = values.every((value, idx) => {
+        return document.querySelectorAll('.input-field')[idx].value !== "";
+      });
+      if (allFilled) {
+        var weights = [2.04, 4.55, 3.18, 4.19];
+        var sum = values.reduce((acc, val, idx) => acc + val * weights[idx], 0) - 4.72;
+        document.getElementById('sum').textContent = sum.toFixed(2);
+      } else {
+        document.getElementById('sum').textContent = '';
+      }
+    }
+
+    window.onload = init;
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    h1 {
+      color: white;
+      font-size: 33px;
+      font-weight: lighter;
+    }
+    p {
+      margin-left: 7.5%;
+      margin-right: 7.5%;
+      font-size: 13px;
+    }
+    form {
+      padding: 10px;
+      margin-left: 7.5%;
+      margin-right: 7.5%;
+      background-color: rgb(245, 245, 245);
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
+    hr {
+      margin-right: 7.5%;
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: calc(100% - 20px);
+      background-color: rgb(232, 232, 232);
+      border-radius: 5px;
+      border: grey;
+      height: 40px;
+      outline: none;
+      padding: 10px;
+      box-sizing: border-box;
+      margin-top: 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+<h1 style="background-color: rgb(255,51,0); margin-bottom: 30px; padding: 4px; font-size: 25px; font-weight: bold;height: 44px">
+  <span style="margin-left: 5%;font-size: 100%">SCTM Calculator V1.0</span>
+  <img src="Changhai.png" style="width:43px;float: right" >
+  <img src="logo-6.png" style="margin-right:5px;width:43px;float: right">
+</h1>
+
+<p style="margin-bottom: 12px">This study aimed to develop and validate a simplified CT model (SCTM) based on the Bosniak classification (v2019) for predicting the malignancy risk of cystic renal masses (CRMs).  </p>
+<p style="margin-bottom: 12px">The interactive SCTM is easy to use. Simply input the two characteristics shown below, and the malignancy risk of cystic renal masses (CRMs) will be presented. </p>
+<p style="margin-bottom: 10px">SCTM does not  collect or store any individual data.</p>
+<hr style="background-color: cornflowerblue; border: none; height: 2px; margin-left: 6.5%;">
+<form>
+  <label for="input1">Number of septa=1-3:</label>
+  <input type="number" id="input1" class="input-field">
+</form>
+<form>
+  <label for="input2">Number of septa≥4:</label>
+  <input type="number" id="input2" class="input-field">
+</form>
+<form>
+  <label for="input3">Convex protrusion=obtuse:</label>
+  <input type="number" id="input3" class="input-field">
+</form>
+<form>
+  <label for="input4">Convex protrusion= acute:</label>
+  <input type="number" id="input4" class="input-field">
+</form>
+<hr style="background-color: cornflowerblue; border: none; height: 2px; margin-left: 7.5%;">
+<p style="margin-bottom: 5px">Result</p>
+<p  style="color: grey;font-size: x-small">Risk of CRMs</p>
+<p id="sum"></p>
+<hr style="border-style: dashed; color: lightgrey; margin-left: 7.5%;">
+<hr style="background-color: cornflowerblue; border: none; height: 2px; margin-left: 7.5%;">
+<p style="margin-bottom: 20px">Note:
+  <br>The malignancy risk of cystic renal masses (CRMs)</p>
+<hr style="background-color: cornflowerblue;border: none;/* 移除默认边框 */height: 2px;/* 设置高度 */margin-left: 7.5%;">
+</body>
+
+</html>
+
+<!--
+测试结果如下：
+①： −4.72+2.04×12+4.55×17+3.18×14+4.19×16=208.67   结果为208.67  分别填写12，17，14，16
+②：−4.72+2.04×14+4.55×10+3.18×20+4.19×13=187.41   结果为187.41  分别填写14，10，20，13
+-->
